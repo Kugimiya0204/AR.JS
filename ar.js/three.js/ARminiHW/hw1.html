@@ -22,6 +22,7 @@ var renderer, scene, camera;
 var stats;
 var arToolKitSource, arToolKitContext;
 var markerHiro;
+var theta = 0;
 
 init();
 animate();
@@ -29,7 +30,7 @@ animate();
 function init() {
 
 	// init renderer
-	renderer= new THREE.WebGLRenderer({
+	renderer	= new THREE.WebGLRenderer({
 		// antialias	: true,
 		alpha: true
 	});
@@ -104,7 +105,7 @@ function addMarkerHiro(){
 		type : 'pattern',
 		patternUrl : THREEx.ArToolkitContext.baseURL + '../data/data/patt.hiro'
 	})
-/*
+	/*
 	// add a torus knot & a transparent box	
 	var geometry	= new THREE.TorusKnotGeometry(0.3,0.1,64,16);
 	var material	= new THREE.MeshNormalMaterial();
@@ -113,17 +114,17 @@ function addMarkerHiro(){
 	markerRoot.add (mesh);
 	
 	mesh = new THREE.Mesh (new THREE.BoxGeometry(1,1,1), 
-				new THREE.MeshNormalMaterial({transparent:false, opacity:0.3}));
+				new THREE.MeshNormalMaterial({transparent:true, opacity:0.3}));
 	mesh.position.y	= 0.5
 	markerRoot.add (mesh);
-*/
-    var ball = new THREE.Mesh(new THREE.SphereGeometry(0.1, 20,20),new THREE.MeshNormalMaterial());
+	*/
+	var ball = new THREE.Mesh (new THREE.SphereGeometry (0.1, 20, 20), new THREE.MeshNormalMaterial());
 	markerRoot.add(ball);
-	ball.position.y=0.1;
+	ball.position.y = 0.01;
 	
-	var grid = new THREE.GridHelper(1,10, 'red','white');
+	var grid = new THREE.GridHelper(1, 10, 'red', 'white');
 	markerRoot.add(grid);
-
+	
 	return markerRoot;
 }	
 
@@ -133,8 +134,10 @@ function animate() {
 	
 	if( arToolkitSource.ready === false )	return
 	arToolkitContext.update( arToolkitSource.domElement )
-    theta+=0.01;
-	markerHiro.children[0].position.set(0.5*Math.sin(theta),0.1,0.5*Math.cos(theta));
+	
+	theta += 0.1;
+	markerHiro.children[0].position.set(0.5*Math.sin(theta), 0.1, 0.5*Math.cos(theta));
+	
 	renderer.render (scene, camera);	
 }
 

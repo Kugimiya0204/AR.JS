@@ -149,15 +149,12 @@ function addMarkerHiro(){
   scene.add(gridXZ);
 
  group = new THREE.Group();
- group2 = new THREE.Group();
   scene.add (group);  
-  scene.add (group2);
 let geometry3 = new THREE.ConeGeometry(5,10,8);
 let material3 = new THREE.MeshBasicMaterial({color:FFFF37});
 let pointer = new THREE.Mesh(geometry3,material3);
-group2.add(pointer);
-group2.position.set(0,0,-20);
-group2.rotation.x=0.5*Math.PI;
+pointer.position.set(0,0,-20);
+pointer.rotation.x=0.5*Math.PI;
 let geometry0 = new THREE.CircleGeometry( 18/16.5, 32, Math.PI/2, 
 2*Math.PI/3);
 let material0 = new THREE.MeshBasicMaterial( { color: 0xffff00, side: THREE.DoubleSide} );
@@ -177,7 +174,7 @@ let circle2 = new THREE.Mesh( geometry2, material2 );
 group.add( circle2 );  
 group.rotation.x=1.5*Math.PI;
     markerRoot.add(group);
-	markerRoot.add(group2);
+	markerRoot.add(pointer);
 	return markerRoot;
 }	
 

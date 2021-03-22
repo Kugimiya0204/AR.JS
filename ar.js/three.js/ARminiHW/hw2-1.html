@@ -151,14 +151,14 @@ function addMarkerHiro(){
 group = new THREE.Group();
 scene.add (group);  
 let geometry3 = new THREE.ConeGeometry(5/16.8,10/16.8,8);
-let material3 = new THREE.MeshBasicMaterial({color:'green'});
+let material3 = new THREE.MeshBasicMaterial({color:'black'});
 let pointer = new THREE.Mesh(geometry3,material3);
 pointer.position.set(0,0,-18/16.5);
 pointer.rotation.x=0.5*Math.PI;
 scene.add(pointer);
 let geometry0 = new THREE.CircleGeometry( 18/16.5, 32, Math.PI/2, 
 2*Math.PI/3);
-let material0 = new THREE.MeshBasicMaterial( { color: 0xffff00, side: THREE.DoubleSide} );
+let material0 = new THREE.MeshBasicMaterial( { color: 'green', side: THREE.DoubleSide} );
 let circle0 = new THREE.Mesh( geometry0, material0 );
 group.add( circle0 );  
 

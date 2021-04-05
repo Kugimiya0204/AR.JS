@@ -195,7 +195,7 @@ group2 = new THREE.Group();
 scene.add (group);  
 let geometry3 = new THREE.ConeGeometry(2.5/16.8,5/16.8,8);
 let material3 = new THREE.MeshBasicMaterial({color:'black'});
-let pointer2 = new THREE.Math(new THREE.CylinderGeometry(2.5/16.8,2.5/16.8,2.5/16.8,10));
+let pointer2 = new THREE.Math(new THREE.CylinderGeometry(2.5/16.8,2.5/16.8,2.5/16.8,10),material3);
 pointer2.rotation.x=0.5*Math.PI;
 pointer2.position.set(0,0,-2.5/33.6);
 group2.add(pointer2);

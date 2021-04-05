@@ -172,7 +172,7 @@ function init() {
 	
 function addMarkerHiro(){
 	
-    let markerRoot = new THREE.Group()
+    markerRoot = new THREE.Group()
 	var artoolkitMarker = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
 		type : 'pattern',
 		patternUrl : THREEx.ArToolkitContext.baseURL + '../data/data/patt.hiro'

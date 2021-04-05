@@ -42,9 +42,10 @@ var pos = 0;
 var angle = 0;
 var group,group2;
 var isActive = false;
+var cubeSpin=false;
 var omega = 0;
 var whRatio,halfH,halfW;
-
+var button1;
 class Button{
     constructor(cx, cy, size, colorString = 'yellow',map=null){
     this.centerX= cx;
@@ -200,7 +201,7 @@ pointer2.rotation.x=0.5*Math.PI;
 pointer2.position.set(0,0,2.5/33.6);
 group2.add(pointer2);
 let pointer = new THREE.Mesh(geometry3,material3);
-pointer.position.set(0,0,7.5/33.6);
+pointer.position.set(0,0,10/33.6);
 pointer.rotation.x=0.5*Math.PI;
 group2.add(pointer);
 let geometry0 = new THREE.CircleGeometry( 18/16.5, 32, Math.PI/2, 
@@ -229,10 +230,13 @@ group.rotation.x=1.5*Math.PI;
 function animate() {
 	requestAnimationFrame (animate);
 	stats.update();
-	
 	if( arToolkitSource.ready === false )	return
 	arToolkitContext.update( arToolkitSource.domElement )
-	
+	renderer.clear();
+	renderer.render(scene,camera);
+	button1.mesh.material.visible = markerRoot.visible;
+	renderer.render(sceneHUD,cameraHUD);
+	if(cubeSpin)
 	var dt= 0.2 ;
   var maxOmega = 5;
   

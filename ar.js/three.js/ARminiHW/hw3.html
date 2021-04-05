@@ -51,8 +51,8 @@ var omega = 0;
 var whRatio,halfH,halfW;
 var button1;
 var pickables= [];
-var mouse = new Vector2();
-var raycaster = THREE.Raycaster();
+var mouse = new THREE.Vector2();
+var raycaster = new THREE.Raycaster();
 
 class Button{
     constructor(cx, cy, size, colorString = 'yellow',map=null){

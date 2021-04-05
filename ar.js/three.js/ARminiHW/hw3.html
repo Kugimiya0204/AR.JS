@@ -44,6 +44,7 @@ var group,group2;
 var isActive = false;
 var omega = 0;
 var whRatio,halfH,halfW;
+
 class Button{
     constructor(cx, cy, size, colorString = 'yellow',map=null){
     this.centerX= cx;
@@ -187,17 +188,21 @@ function addMarkerHiro(){
   );
   var gridXZ = new THREE.GridHelper(200, 20, 'red', 'white');
   scene.add(gridXZ);
-  var gridXZ = new THREE.GridHelper(200, 20, 'red', 'white');
-  scene.add(gridXZ);
+
 
 group = new THREE.Group();
+group2 = new THREE.Group();
 scene.add (group);  
-let geometry3 = new THREE.ConeGeometry(5/16.8,10/16.8,8);
+let geometry3 = new THREE.ConeGeometry(2.5/16.8,5/16.8,8);
 let material3 = new THREE.MeshBasicMaterial({color:'black'});
+let pointer2 = new THREE.Math(new THREE.cylinderGeometry(2.5/16.8,2.5/16.8,2.5/16.8,10));
+pointer2.rotation.x=0.5*Math.PI;
+pointer2.position.set(0,0,-2.5/33.6);
+group2.add(pointer2);
 let pointer = new THREE.Mesh(geometry3,material3);
-pointer.position.set(0,0,-18/16.5);
+pointer.position.set(0,0,-5/33.6);
 pointer.rotation.x=0.5*Math.PI;
-scene.add(pointer);
+group2.add(pointer);
 let geometry0 = new THREE.CircleGeometry( 18/16.5, 32, Math.PI/2, 
 2*Math.PI/3);
 let material0 = new THREE.MeshBasicMaterial( { color: 'green', side: THREE.DoubleSide} );
@@ -217,7 +222,7 @@ let circle2 = new THREE.Mesh( geometry2, material2 );
 group.add( circle2 );  
 group.rotation.x=1.5*Math.PI;
     markerRoot.add(group);
-	markerRoot.add(pointer);
+	markerRoot.add(group2);
 	return markerRoot;
 }	
 

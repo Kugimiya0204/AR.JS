@@ -22,15 +22,10 @@
 	 - three.js<br>
 Minimal Version
 </div>
-<div style='position: fixed; top: 30px; width:100%; text-align: center; z-index: 1;'>
-<button id='toggle'>
-toggle
-</button>
 </div>
 <p id="phone" style="color: red; text-align: center;">
 	windows(red),ios(blue),android(black)
 	</p>
-<>
 <p id="press" style="color:black;text-align:center;">
 	did not press
 </p>
@@ -56,6 +51,9 @@ var omega = 0;
 var whRatio,halfH,halfW;
 var button1;
 var pickables= [];
+var mouse = new Vector2();
+var raycaster = THREE.Raycaster();
+
 class Button{
     constructor(cx, cy, size, colorString = 'yellow',map=null){
     this.centerX= cx;
@@ -76,13 +74,6 @@ class Button{
 }
 init();
 animate();
-
- $('#toggle').click (
-
-   function() {
-		  isActive = ! isActive;
-    }
-);
 function init() {
     
 	var userAgent = navigator.userAgent || navigator.vendor || window.opera;
@@ -107,6 +98,7 @@ function init() {
 		// antialias	: true,
 		alpha: true
 	});
+	renderer.autoClear = false;
 	renderer.setClearColor(new THREE.Color('lightgrey'), 0)
 	// renderer.setPixelRatio( 1/2 );
 	renderer.setSize( window.innerWidth, window.innerHeight );

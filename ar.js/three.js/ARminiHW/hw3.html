@@ -27,6 +27,13 @@ Minimal Version
 toggle
 </button>
 </div>
+<p id="phone" style="color: red; text-align: center;">
+	windows(red),ios(blue),android(black)
+	</p>
+<>
+<p id="press" style="color:black;text-align:center;">
+	did not press
+</p>
 <p id="text" style ="color:red">
 color
 </p>
@@ -81,17 +88,17 @@ function init() {
 	var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 	
 	if(/windows phone/i.test(userAgent)){
-		$('Window Phone').css('color','black');
+		$('#phone').css('color','red');
 		document.addEventListener('touchstart',onMouseDown,false);
 		document.addEventListener('touched',onMouseUp,false);
 	}
 	if(/android/i.test(userAgent)){
-	    $('Android').css('color','black');
+	    $('#phone').css('color','blue');
 		document.addEventListener('touchstart',onMouseDown,false);
 		document.addEventListener('touched',onMouseUp,false);
 	}
 	if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-        $('IOS').css('color','black');
+        $('#phone').css('color','black');
 		document.addEventListener('touchstart',onMouseDown,false);
 		document.addEventListener('touched',onMouseUp,false);
     }
@@ -209,7 +216,8 @@ function addMarkerHiro(){
   );
 group = new THREE.Group();
 group2 = new THREE.Group();
-scene.add (group);  
+scene.add (group);
+scene.add (group2);  
 let geometry3 = new THREE.ConeGeometry(2.5/16.8,5/16.8,8);
 let material3 = new THREE.MeshBasicMaterial({color:'black'});
 let pointer2 = new THREE.Mesh(new THREE.CylinderGeometry(2.5/16.8,2.5/16.8,2.5/16.8,10),material3);
@@ -287,7 +295,7 @@ function onMouseDown(event){
 	 
 	 var intersects = raycaster.intersectObjects(pickables);
 	 
-	 if(intersects.lengh > 0){
+	 if(intersects.length > 0){
 	    $('#press').css('color','yellow');
 		$('#press').html('< id="press" style = "color:black;text-align:center;">press</p>');
 		isActive = true;

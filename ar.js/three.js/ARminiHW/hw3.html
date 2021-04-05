@@ -197,10 +197,10 @@ let geometry3 = new THREE.ConeGeometry(2.5/16.8,5/16.8,8);
 let material3 = new THREE.MeshBasicMaterial({color:'black'});
 let pointer2 = new THREE.Mesh(new THREE.CylinderGeometry(2.5/16.8,2.5/16.8,2.5/16.8,10),material3);
 pointer2.rotation.x=0.5*Math.PI;
-pointer2.position.set(0,0,-2.5/33.6);
+pointer2.position.set(0,0,2.5/33.6);
 group2.add(pointer2);
 let pointer = new THREE.Mesh(geometry3,material3);
-pointer.position.set(0,0,-5/33.6);
+pointer.position.set(0,0,5/33.6);
 pointer.rotation.x=0.5*Math.PI;
 group2.add(pointer);
 let geometry0 = new THREE.CircleGeometry( 18/16.5, 32, Math.PI/2, 

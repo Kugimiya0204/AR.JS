@@ -36,7 +36,7 @@ color
 var renderer, scene, camera,sceneHUD,cameraHUD;
 var stats;
 var arToolKitSource, arToolKitContext;
-var markerHiro;
+var markerHiro,markerRoot;
 var theta = 0;
 var pos = 0;
 var angle = 0;
@@ -247,7 +247,7 @@ function animate() {
   }
   omega=clamp(omega, 0,maxOmega);
   angle+=omega*dt;
-  group2.rotation.z=angle;
+  group.rotation.z=angle;
   if((angle%(2*Math.PI))<(2/3*Math.PI))
   {
    $('#text').css ('color', 'red'); 

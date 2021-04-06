@@ -24,7 +24,7 @@ Minimal Version
 </div>
 </div>
 <p id="phone" style="color: white; text-align: center;">
-	windows(red),ios(blue),android(black)
+	others(red),ios(blue),android(black)
 	</p>
 <p id="press" style="color:black;text-align:center;">
 	did not press
@@ -75,24 +75,22 @@ class Button{
 init();
 animate();
 function init() {
-    
-	var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-	
-	if(/windows phone/i.test(userAgent)){
-		$('#phone').css('color','red');
-		document.addEventListener('touchstart',onMouseDown,false);
-		document.addEventListener('touched',onMouseUp,false);
-	}
-	if(/android/i.test(userAgent)){
+
+	if(!!navigator.platform.match(/Andriod/)){
 	    $('#phone').css('color','blue');
 		document.addEventListener('touchstart',onMouseDown,false);
 		document.addEventListener('touched',onMouseUp,false);
 	}
-	if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+	else if (!!navigator.platform.match(/iPhone|iPod|iPad/)) {
         $('#phone').css('color','black');
 		document.addEventListener('touchstart',onMouseDown,false);
 		document.addEventListener('touched',onMouseUp,false);
     }
+	else{
+		$('#phone').css('color','red');
+		document.addEventListener('touchstart',onMouseDown,false);
+		document.addEventListener('touched',onMouseUp,false);
+	}
 	// init renderer
 	renderer	= new THREE.WebGLRenderer({
 		// antialias	: true,

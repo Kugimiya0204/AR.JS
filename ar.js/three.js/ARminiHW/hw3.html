@@ -23,7 +23,7 @@
 Minimal Version
 </div>
 </div>
-<p id="phone" style="color: red; text-align: center;">
+<p id="phone" style="color: white; text-align: center;">
 	windows(red),ios(blue),android(black)
 	</p>
 <p id="press" style="color:black;text-align:center;">
@@ -261,9 +261,9 @@ function animate() {
   }else{
    omega = omega - 0.15*dt;
   }
-  omega=clamp(omega, 0,maxOmega);
+  omega=clamp(omega,0,maxOmega);
   angle+=omega*dt;
-  group.rotation.z=angle;
+  group2.rotation.z=angle;
   if((angle%(2*Math.PI))<(2/3*Math.PI))
   {
    $('#text').css ('color', 'red'); 

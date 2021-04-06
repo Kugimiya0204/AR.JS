@@ -261,7 +261,7 @@ function animate() {
   }
   omega=clamp(omega,0,maxOmega);
   angle+=omega*dt;
-  group2.rotation.z=angle;
+  group2.rotation.y=angle;
   if((angle%(2*Math.PI))<(2/3*Math.PI))
   {
    $('#text').css ('color', 'red'); 

@@ -290,11 +290,11 @@ function onMouseDown(event){
 	 
 	 if(intersects.length > 0){
 	    $('#press').css('color','yellow');
-		$('#press').html('< id="press" style = "color:black;text-align:center;">press</p>');
+		$('#press').html('<p id="press" style = "color:black;text-align:center;">press</p>');
 		isActive = true;
 	 }else{
 		$('#press').css('color','green');
-		$('#press').html('< id="press" style = "color:black;text-align:center;">press the wrong place</p>')
+		$('#press').html('<p id="press" style = "color:black;text-align:center;">press the wrong place</p>')
 		isActive = false;
 	 }
 	 }
@@ -306,7 +306,7 @@ function onMouseUp(event){
 	var touches = event.changedTouches;
 	for(var i=0;i<touches.length;i++){
 		$('#press').css('color','cyan');
-		$('#press').html('< id="press" style = "color:black;text-align:center;">did not press</p>');
+		$('#press').html('<p id="press" style = "color:black;text-align:center;">did not press</p>');
 		isActive = false;
 		
 	}

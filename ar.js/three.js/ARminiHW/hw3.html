@@ -84,12 +84,12 @@ function init() {
 	else if (!!navigator.platform.match(/iPhone|iPod|iPad/)) {
         $('#phone').css('color','black');
 		document.addEventListener('touchstart',onMouseDown,false);
-		document.addEventListener('touched',onMouseUp,false);
+		document.addEventListener('touchend',onMouseUp,false);
     }
 	else{
 		$('#phone').css('color','red');
 		document.addEventListener('touchstart',onMouseDown,false);
-		document.addEventListener('touched',onMouseUp,false);
+		document.addEventListener('touchend',onMouseUp,false);
 	}
 	// init renderer
 	renderer	= new THREE.WebGLRenderer({

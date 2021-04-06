@@ -264,15 +264,15 @@ function animate() {
   group2.rotation.y=angle;
   if((angle%(2*Math.PI))<(2/3*Math.PI))
   {
-   $('#text').css ('color', 'red'); 
+   $('#text2').css ('color', 'red'); 
    $('#text').html('<p id="text" style ="color:red;text-align:center;background-color:white;"red</p>');
   }
   else if((2/3*Math.PI<(angle%(2*Math.PI)))&&((angle%(2*Math.PI))<4/3*Math.PI)){
-   $('#text').css ('color', 'green');
+   $('#text2').css ('color', 'green');
    $('#text').html('<p id="text" style ="color:gren;text-align:center;background-color:white;"green</p>');
 }
   else if(4/3*Math.PI<(angle%(2*Math.PI))){
-   $('#text').css ('color', 'blue');
+   $('#text2').css ('color', 'blue');
    $('#text').html('<p id="text" style ="color:blue;text-align:center;background-color:white;"blue</p>');
  }
 	}

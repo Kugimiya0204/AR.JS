@@ -72,15 +72,15 @@ function init() {
 	// https://stackoverflow.com/questions/9038625/detect-if-device-is-ios?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
 	if(!!navigator.platform.match(/Android/)){
 	    $('#phone').css('color','blue');
-		document.addEventListener('mousedown',onMouseDown,false);
+		document.addEventListener('touchstart',onMouseDown,false);
 	}
 	else if (!!navigator.platform.match(/iPhone|iPod|iPad/)) {
         $('#phone').css('color','black');
-		document.addEventListener('mousedown',onMouseDown,false);
+		document.addEventListener('touchstart',onMouseDown,false);
     }
 	else{
 		$('#phone').css('color','red');
-		document.addEventListener('mousedown',onMouseDown,false);
+		document.addEventListener('touchstart',onMouseDown,false);
 	}
 
 	// init renderer

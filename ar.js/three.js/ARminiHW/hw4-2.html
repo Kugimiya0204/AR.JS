@@ -108,13 +108,12 @@ function init() {
 	//////////////////////////////////////////////////////////////////////////////////
 
 	// Create a camera
-	camera = new THREE.Camera();
-	scene.add(camera);
-	
     sceneHUD =new THREE.Scene();
 	halfH = 10;
 	halfW = halfH*whRatio;
+	camera = new THREE.Camera();
 	cameraHUD = new THREE.OrthographicCamera(-halfW,halfW, halfH,-halfH,-10,10);
+	scene.add(camera);
 	////////////////////////////////////////////////////////////////////////////////
 	//          handle arToolkitSource
 	////////////////////////////////////////////////////////////////////////////////
@@ -166,6 +165,19 @@ function init() {
 	
 	markerHiro = addMarkerHiro();
 	scene.add (markerHiro); 
+	let geometry1 = new THREE.PlaneBufferGeometry(1,1, 4,4);
+	let loader = new THREE.TextureLoader();
+	loader.setCrossOrigin('')
+	let texture = loader.load( 'https://i.imgur.com/9lNTtwE.png' );
+	
+	let material = new THREE.MeshBasicMaterial( { 
+		map: texture,
+		//color: 0xffff00,
+		side: THREE.DoubleSide
+		} );
+	
+	mesh1 = new THREE.Mesh( geometry1, material );
+	mesh1.rotation.x = -Math.PI/2;
 	// initialize explosion sprite
 	initSprite(markerHiro);
 		

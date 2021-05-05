@@ -72,15 +72,15 @@ function init() {
 	// https://stackoverflow.com/questions/9038625/detect-if-device-is-ios?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
 	if(!!navigator.platform.match(/Android/)){
 	    $('#phone').css('color','blue');
-		document.addEventListener('touchstart',onMouseDown,false);
+		document.addEventListener('mousedown',onMouseDown,false);
 	}
 	else if (!!navigator.platform.match(/iPhone|iPod|iPad/)) {
         $('#phone').css('color','black');
-		document.addEventListener('touchstart',onMouseDown,false);
+		document.addEventListener('mousedown',onMouseDown,false);
     }
 	else{
 		$('#phone').css('color','red');
-		document.addEventListener('touchstart',onMouseDown,false);
+		document.addEventListener('mousedown',onMouseDown,false);
 	}
 
 	// init renderer
@@ -240,6 +240,19 @@ function animate() {
   stats.update();
   if( arToolkitSource.ready === false )	return
   arToolkitContext.update( arToolkitSource.domElement )
+  
+  let localCamera = markerHiro.worldToLocal (new THREE.Vector3(0,0,0))
+	// CYLINDRICAL billboard:
+	localCamera.y = 0;
+	
+	// to rotate (0,0,1) to localCamera [markerCoord]
+	let point = new THREE.Vector3(0,0,1);
+	let angle = point.angleTo (localCamera);
+	let axis = new THREE.Vector3();
+	axis.crossVectors(point, localCamera).normalize(); // normalization is IMPORTANT!
+	let bombGroup = markerHiro.children[1];
+	bombGroup.quaternion.setFromAxisAngle (axis, angle);
+	
   renderer.clear();
   renderer.render(scene,camera);
   button1.mesh.material.visible = markerRoot.visible;

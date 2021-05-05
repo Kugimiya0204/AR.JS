@@ -40,7 +40,7 @@ color
 var renderer, scene, camera,sceneHUD,cameraHUD;
 var arToolKitSource, arToolKitContext;
 var stats;
-var markerHiro,markerRoot,markerRootHiro;
+var markerHiro,markerRoot;
 var whRatio,halfH,halfW;
 var _iOSDevice;
 var button1;
@@ -195,8 +195,8 @@ for(var i = 0; i < touches.length;i++){
 }
 
 function addMarkerHiro () {
-    markerRootHiro = new THREE.Group();
-	var artoolkitMarker = new THREEx.ArMarkerControls(arToolkitContext, markerRootHiro, {
+    markerRoot = new THREE.Group();
+	var artoolkitMarker = new THREEx.ArMarkerControls(arToolkitContext, markerRoot, {
 		type : 'pattern',
 		 patternUrl : THREEx.ArToolkitContext.baseURL + '../data/data/patt.hiro'
 	})
@@ -212,14 +212,14 @@ function addMarkerHiro () {
     function(texture) {
       // do something with the texture
       // Plane with default texture coordinates [0,1]x[0,1]
-      console.log('texture loaded...')
+    
       button1 = new Button(halfW/2,-halfH/2,halfH/3,'cyan',texture);
       sceneHUD.add(button1.mesh);
 	  pickables.push(button1.mesh);
 	// nothing to added here (for now)	
 	},
 );
-	return markerRootHiro;
+	return markerRoot;
 }
 
 
@@ -230,7 +230,7 @@ function animate() {
   arToolkitContext.update( arToolkitSource.domElement )
   renderer.clear();
   renderer.render(scene,camera);
-  button1.mesh.material.visible = markerRootHiro.visible;
+  button1.mesh.material.visible = markerRoot.visible;
   renderer.render(sceneHUD,cameraHUD);
   //let msg = baseS + ', ' + baseT;
   //console.log (msg);

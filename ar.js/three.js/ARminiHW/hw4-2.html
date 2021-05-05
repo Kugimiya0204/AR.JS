@@ -21,20 +21,20 @@
 <body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
 <div style='position: absolute; top: 10px; width:100%; text-align: center; z-index: 1;'>
 <a href="https://github.com/jeromeetienne/AR.js/" target="_blank">AR.js</a>
-	<br>
-	HW4-2
-</div>
-<p id="phone" style="color: white; text-align: center;">
-	others(red),ios(blue),android(black)
+	 - three.js<br>
+	Minimal Version<br>
+	<p id="hw3" style ="color:black;text-align:center;">
+	hw4_2
 	</p>
-<p id="press" style="color:black;text-align:center;">
+	
+	<p id="press" style ="color:black;text-align:center;">
 	did not press
-</p>
-<p id="text" style="color:red;width:30%;text-align:center;margin-right:48%;margin-left:48%;background-color:#888888;">
-</p>
-<p id="text2" style ="color:red">
-color
-</p>
+	</p>
+	
+	
+	
+</div>
+
 
 <script>
 
@@ -179,7 +179,7 @@ function init() {
 	let geometry1 = new THREE.PlaneBufferGeometry(1,1, 4,4);
 	let loader = new THREE.TextureLoader();
 	loader.setCrossOrigin('')
-	let texture = loader.load( 'https://i.imgur.com/9lNTtwE.png' );
+	let texture = loader.load( 'https://i.imgur.com/sFfSAYH.png?1' );
 	
 	let material = new THREE.MeshBasicMaterial( { 
 		map: texture,
@@ -228,7 +228,7 @@ function addMarkerHiro(){
 	// load a resource
 	loader.load(
     // resource URL
-	'https://i.imgur.com/eI9dDrj.png',
+	'https://i.imgur.com/FoevTzs.png',
     // Function when resource is loaded
     function(texture) {
       // do something with the texture

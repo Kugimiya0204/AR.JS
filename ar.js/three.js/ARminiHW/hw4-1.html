@@ -111,7 +111,7 @@ function init() {
   ///////////////////////////////////
 	cannon = makeCannon();
 	scene.add (cannon);
-  ball = new THREE.Mesh (new THREE.SphereGeometry(2,8,8), new THREE.MeshBasicMaterial({color:'yellow',wireframe:true}));
+  ball = new THREE.Mesh (new THREE.CylinderGeometry(0.5,2,5,20), new THREE.MeshPhongMaterial({color:'red',wireframe:true}));
   light = new THREE.PointLight( 0xffffff, 1);
   scene.add (ball);
   scene.add(light);
@@ -231,6 +231,10 @@ function animate() {
  
   
 }
+
+
+
+
 
 </script>
 </body>

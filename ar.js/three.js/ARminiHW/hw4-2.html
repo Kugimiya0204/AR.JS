@@ -19,7 +19,6 @@
 	<a href="https://github.com/jeromeetienne/AR.js/" target="_blank">AR.js</a>
 	<br>
 	HW4-2
-	<br>
 	<p id="phone" style="color: white; text-align: center;">
 	others(red),ios(blue),android(black)
 	</p>
@@ -39,11 +38,13 @@ color
 // global variables
 var renderer, scene, camera,sceneHUD,cameraHUD;
 var arToolKitSource, arToolKitContext;
-
-var markerHiro,markerRoot;
-
+var stats;
+var markerHiro,markerRoot,markerRootHiro;
+var whRatio,halfH,halfW;
 var _iOSDevice;
 var button1;
+var pickables= [];
+var mouse = new THREE.Vector2();
 var raycaster = new THREE.Raycaster();
 class Button{
     constructor(cx, cy, size, colorString = 'yellow',map=null){
@@ -93,7 +94,10 @@ function init() {
 	renderer.domElement.style.top = '0px'
 	renderer.domElement.style.left = '0px'
 	document.body.appendChild( renderer.domElement );
-
+    hRatio = window.innerWidth/window.innerHeight;
+	
+	stats = new Stats();
+	document.body.appendChild( stats.dom );
 	
 	// init scene and camera
 	scene	= new THREE.Scene();
@@ -187,7 +191,7 @@ for(var i = 0; i < touches.length;i++){
 }
 
 function addMarkerHiro () {
-	let markerRootHiro = new THREE.Group();
+    markerRootHiro = new THREE.Group();
 	var artoolkitMarker = new THREEx.ArMarkerControls(arToolkitContext, markerRootHiro, {
 		type : 'pattern',
 		 patternUrl : THREEx.ArToolkitContext.baseURL + '../data/data/patt.hiro'
@@ -216,7 +220,7 @@ function addMarkerHiro () {
 
 function animate() {
   requestAnimationFrame (animate);
-	
+  stats.update();
   if( arToolkitSource.ready === false )	return
   arToolkitContext.update( arToolkitSource.domElement )
   renderer.clear();

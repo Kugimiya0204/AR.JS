@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<style>
+#info {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  color: #ffff00
+}
+
+body {
+  overflow: hidden;
+}
+
+
+</style>
+</head>
+
+<body> 
+<div id="info">Cannon Firing</div>
+<script src="https://threejs.org/build/three.min.js"></script>
+<script src="https://threejs.org/examples/js/controls/OrbitControls.js">
+</script>
+<script src="https://jyunming-chen.github.io/tutsplus/js/KeyboardState.js"></script>
+
+
+<script>
+var camera, scene, renderer;
+var cannon;
+var barrelPart,barrel,body;
+var clock;
+var ball;
+var pos, vel, force;
+var keyboard = new KeyboardState();
+var power, angle;
+var theta;
+var line,light;
+var bar_angle = -Math.PI/4,cir_angle = Math.PI;
+var nowPos, prePos;
+var flag = 0;
+init();
+animate();
+
+function clamp (x, xLo, xHi) {
+	if (x < xLo) return xLo;
+	if (x > xHi) return xHi;
+	else return x;
+}
+
+function update() {
+
+  keyboard.update();
+  
+  if (keyboard.pressed("up"))
+  {
+
+  	bar_angle += 0.01; 
+   
+  }
+  
+  if (keyboard.pressed("down"))
+  {
+  	
+  	bar_angle -= 0.01; 
+    
+  }
+  bar_angle =clamp(bar_angle,-Math.PI/3-0.15 , -Math.PI/4+0.15);
+  barrelPart.rotation.z = bar_angle;
+  
+  if (keyboard.pressed("left"))
+  {
+  	cir_angle+=0.01;
+  }
+  
+  if (keyboard.pressed("right"))
+  {
+  	cir_angle-=0.01;
+  }
+  cannon.rotation.y = cir_angle;
+  
+  if (keyboard.pressed("space"))
+  {
+
+  	flag=1;
+   
+  }
+}
+function init() {
+
+  scene = new THREE.Scene();
+
+  renderer = new THREE.WebGLRenderer();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(0x888888);
+  document.body.appendChild(renderer.domElement);
+
+  camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 1000);
+  camera.position.set (0,150,150);
+  let controls = new THREE.OrbitControls(camera, renderer.domElement);
+  var gridXZ = new THREE.GridHelper(200, 20, 'red', 'white');
+  scene.add(gridXZ);
+  
+  ///////////////////////////////////////////////////////////
+  clock = new THREE.Clock();
+  bar_angle = -Math.PI/4;
+  ///////////////////////////////////
+	cannon = makeCannon();
+	scene.add (cannon);
+  ball = new THREE.Mesh (new THREE.SphereGeometry(2,8,8), new THREE.MeshBasicMaterial({color:'yellow',wireframe:true}));
+  light = new THREE.PointLight( 0xffffff, 1);
+  scene.add (ball);
+  scene.add(light);
+  ///////////// ///////////////
+  line = makeProjectile(30,-bar_angle);
+  scene.add (line);
+  nowPos = new THREE.Vector3();
+    prePos = new THREE.Vector3();
+    prePos.copy(barrel.localToWorld (new THREE.Vector3(0,18,0)));
+}
+
+function makeCannon() {
+	let cannon = new THREE.Group();
+  body = new THREE.Mesh (new THREE.SphereGeometry(
+    10,20,20, Math.PI+Math.PI*0.1,Math.PI*1.8,0,Math.PI/2), new THREE.MeshNormalMaterial());
+  barrelPart = new THREE.Group();
+  barrel = new THREE.Mesh (new THREE.CylinderGeometry(2,2,20,18), new THREE.MeshNormalMaterial());
+  barrelPart.add (barrel);
+  barrel.position.y = 10;
+  barrelPart.rotation.z = bar_angle;
+	cannon.add (body, barrelPart);
+  return cannon;
+}
+
+function computeInitPosVel() {
+  const SPEED = 27;
+	vel = barrel.localToWorld (new THREE.Vector3(0,20,0)).sub (
+  barrel.localToWorld (new THREE.Vector3(0,0,0))).setLength (SPEED);
+	pos = barrel.localToWorld (new THREE.Vector3(0,22,0));
+	force = new THREE.Vector3(0,-10,0);//G
+  force.add(new THREE.Vector3(0,0,2));//Wind
+  force.add(vel.clone().multiplyScalar(-0.1251));//drog
+  
+}
+function makeProjectile (v, theta) {
+	const G = 10;
+  const cT = Math.sin(theta);
+  const sT = Math.cos(theta);
+  
+	let a = - G/2/v/v/cT/cT;
+  let b = v*v/G*sT*cT;
+  let c = v*v/2/G*sT*sT;
+  return makeParabola (a, b, c);
+  
+}
+function makeParabola (a, b, c) {
+	let xRange = Math.sqrt(-a*c)*2/a;
+  const N = 80;
+  let dx = xRange/80;
+  
+  let points = [];
+  let x0 = b - xRange/1.95;
+  for (let i = 0; i <= N; i++) {
+  	xi = x0 + i*dx;
+    yi = a*(xi-b)*(xi-b) + c;
+    let temp = new THREE.Vector3(Math.cos(-1*cir_angle)*xi,yi+1.5,Math.sin(-1*cir_angle)*xi);
+    points.push (temp.add(barrelPart.localToWorld (new THREE.Vector3(0,20,0))));
+  }
+  
+  let geometry = new THREE.BufferGeometry().setFromPoints(points);
+  let parabola = new THREE.Line (geometry, new THREE.LineDashedMaterial({color:'cyan'}));
+  parabola.computeLineDistances(); // required for LineDashedMaterial
+  return parabola;
+  
+}
+function animate() {
+  
+  requestAnimationFrame(animate);
+  renderer.clear();
+  renderer.render(scene, camera);
+  
+  let dt = clock.getDelta();
+  
+  update();
+  
+  scene.remove(line);
+  line = makeProjectile (30,-bar_angle);
+ 
+  scene.add(line);
+  
+	if(flag==1)
+    {
+  	
+  	 if (pos === undefined) {
+  	 computeInitPosVel();
+     scene.remove(ball);
+     scene.remove(light);
+     scene.add(ball);
+     scene.add(light);
+  	 return;
+  	 }
+  	if (pos.y < 0)
+  		return;
+    
+  	vel.add (force.clone().multiplyScalar(dt));
+  	pos.add (vel.clone().multiplyScalar(dt));
+  	ball.position.copy (pos);
+    light.position.copy (pos);
+    light.position.y += 12;
+    prePos.copy (nowPos);
+    nowPos.copy (pos);
+   ball.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0), nowPos.clone().sub(prePos).normalize());
+    
+    if(pos.y<=0)
+    {
+    	
+    	flag = 0;
+     
+      
+     	pos = undefined;
+    }
+    	
+    
+  }
+  
+
+ 
+  
+}
+
+</script>
+</body>
+
+</html>

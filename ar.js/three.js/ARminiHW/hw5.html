@@ -177,6 +177,7 @@ function addMarkerHiro(){
     //scene.add(targetBall);
     target = new THREE.Vector3(7, 0, 0);
     //targetBall.position.copy(target);
+     var loader = new THREE.TextureLoader();
     loader.load('https://i.imgur.com/esubtDN.png', function (texture) {     
                 var geometry = new THREE.CylinderGeometry(.028,0.1,0.25,20)  
                 var material = new THREE.MeshBasicMaterial({ map: texture })  

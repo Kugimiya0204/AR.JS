@@ -137,7 +137,7 @@ function init() {
 	
 	
 }
-	
+
 function addMarkerHiro(){
 	let markerRoot = new THREE.Group()
 
@@ -177,8 +177,12 @@ function addMarkerHiro(){
     //scene.add(targetBall);
     target = new THREE.Vector3(7, 0, 0);
     //targetBall.position.copy(target);
-  
-    ball = new THREE.Mesh (new THREE.CylinderGeometry(.028,0.1,0.25,20), new THREE.MeshPhongMaterial({color:'yellow',wireframe:true}));
+    loader.load('https://i.imgur.com/esubtDN.png', function (texture) {     
+                var geometry = new THREE.CylinderGeometry(.028,0.1,0.25,20)  
+                var material = new THREE.MeshBasicMaterial({ map: texture })  
+                ball = new THREE.Mesh(geometry, material);        
+            })
+    //ball = new THREE.Mesh (new THREE.CylinderGeometry(.028,0.1,0.25,20), new THREE.MeshPhongMaterial({color:'yellow',wireframe:true}));
     light = new THREE.PointLight( 0xffffff, 1);
     markerRoot.add(ball);
     markerRoot.add(light);
